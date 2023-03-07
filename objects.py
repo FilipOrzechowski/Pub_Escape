@@ -52,4 +52,47 @@ class Map_Objects():
         self.graph[neighbour].remove(node)
 
       self.graph[node] = []
+  def choose_direction(self, choice):
+    if choice == "w":
+      next_node = (self.player[0], self.player[1] - 1)
+
+    elif choice == "e":
+      next_node = (self.player[0] + 1, self.player[1] - 1)
+    
+    elif choice == "d":
+      next_node = (self.player[0] + 1, self.player[1])
+    
+    elif choice == "c":
+      next_node = (self.player[0] + 1, self.player[1] + 1)
+    
+    elif choice == "x":
+      next_node = (self.player[0], self.player[1] + 1)
+    
+    elif choice == "z":
+      next_node = (self.player[0] - 1, self.player[1] + 1)
+    
+    elif choice == "a":
+      next_node = (self.player[0] - 1, self.player[1])
+    
+    elif choice == "q":
+      next_node = (self.player[0] - 1, self.player[1] - 1)
+    
+    elif choice == "s":
+      next_node = self.player
+    
+    return next_node
+  
+  def change_player_position(self):
+    choice = input("Choose a direction!")
+    next_node = self.choose_direction(choice)
+    possible_nodes = self.graph[self.player] + [self.player]
+    while choice not in ["w", "e", "d", "c", "x", "z", "a", "q", "s"] or next_node not in possible_nodes:
+      choice = input("Wrong button! Choose a direction!")
+
+    self.player = self.choose_direction(choice)
+
+  def change_enemy_position(self):
+    input("Press enter to let your enemy change position")
+    next_node = a_star(self.graph, self.enemy, self.player)[1]
+    self.enemy = next_node
   
