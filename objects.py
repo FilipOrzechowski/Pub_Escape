@@ -95,4 +95,44 @@ class Map_Objects():
     input("Press enter to let your enemy change position")
     next_node = a_star(self.graph, self.enemy, self.player)[1]
     self.enemy = next_node
+
+  def print_map(self):
+    game_map = ""
+    for y in range(-1, self.grid_dim):
+      for x in range(self.grid_dim):
+        if (x, y) in self.obstacles:
+          game_map += "|  X  "
+        
+        elif (x, y) == self.player and (x, y) not in [self.enemy, self.exit]:
+          game_map += "|  *  "
+
+        elif (x, y) == self.enemy:
+          game_map += "|  @  "
+        
+        elif y == -1:
+          if x == self.exit[0]:
+            game_map += "|EXIT |"
+
+          else:
+            game_map += "      "
+        
+        else:
+          game_map += "|     "
+
+      if y != -1:
+        game_map += "|\n" 
+
+      else:
+        game_map += "\n"
+
+      game_map += "------"*self.grid_dim + "-\n"
+
+    print(game_map)
   
+  def create_complete_map(self):
+    self.place_merge_exit_()
+    self.place_player()
+    self.place_enemy()
+    self.place_obstacle()
+    self.remove_obstacle_nodes()
+    self.print_map()  
