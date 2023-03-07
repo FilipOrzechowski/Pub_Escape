@@ -80,6 +80,9 @@ class Map_Objects():
     elif choice == "s":
       next_node = self.player
     
+    else:
+      next_node = None
+    
     return next_node
   
   def change_player_position(self):
@@ -88,8 +91,9 @@ class Map_Objects():
     possible_nodes = self.graph[self.player] + [self.player]
     while choice not in ["w", "e", "d", "c", "x", "z", "a", "q", "s"] or next_node not in possible_nodes:
       choice = input("Wrong button! Choose a direction!")
+      next_node = self.choose_direction(choice)
 
-    self.player = self.choose_direction(choice)
+    self.player = next_node
 
   def change_enemy_position(self):
     input("Press enter to let your enemy change position")
